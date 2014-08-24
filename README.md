@@ -87,6 +87,27 @@ head(data[, 1:5])
 ## 6       2  WALKING            0.2792          -0.01862          -0.11390
 ```
 
+### See how the data is structred (output is in the CodeBook.md file)
+
+```r
+# Get the size of the data
+print(object.size(data), units="Mb")
+# Get a summary of the data
+summary(data);
+# Get the structure of the data
+str(data);
+# See a table of subject
+table(data$subject);
+# See a table of activity
+table(data$activity);
+# See a two dimensional table of subject and activity
+table(data$subject, data$activity);
+# Check if there are any NAs
+sum(is.na(data))
+# Check NA by columns, subset
+head(colSums(is.na(data)), 10)
+```
+
 ### Extracts only the measurements on the mean and standard deviation for each measurement. 
 
 ```r
@@ -119,6 +140,13 @@ This step was done above, during merging of the data sets
 
 ```r
 library(reshape2);
+```
+
+```
+## Warning: package 'reshape2' was built under R version 3.0.3
+```
+
+```r
 data_melt <- melt(data, id = c("subject", "activity"));
 avg <- dcast(data_melt, subject + activity ~ variable, mean);
 ```

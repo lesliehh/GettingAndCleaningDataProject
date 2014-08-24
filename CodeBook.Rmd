@@ -62,3 +62,37 @@ data <- data[,c(1,3:563)];
 ```{r}
 head(data[, 1:5])
 ```
+
+### See how the data is structred
+#### Get the size of the data
+```{r}
+print(object.size(data), units="Mb")
+```
+#### Get a summary of the data
+```{r}
+summary(data);
+```
+#### Get the structure of the data
+```{r}
+str(data);
+```
+#### See a table of subject
+```{r}
+table(data$subject);
+```
+#### See a table of activity
+```{r}
+table(data$activity);
+```
+#### See a two dimensional table of subject and activity
+```{r}
+table(data$subject, data$activity);
+```
+#### Check if there are any NAs
+```{r}
+sum(is.na(data))
+```
+#### Check NA by columns, subset
+```{r}
+head(colSums(is.na(data)), 10)
+```

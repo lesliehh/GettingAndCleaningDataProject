@@ -42,6 +42,24 @@ data <- data[,c(1,3:563)];
 head(data[, 1:5])
 
 
+### See how the data is structred
+# Get the size of the data
+print(object.size(data), units="Mb")
+# Get a summary of the data
+summary(data);
+# Get the structure of the data
+str(data);
+# See a table of subject
+table(data$subject);
+# See a table of activity
+table(data$activity);
+# See a two dimensional table of subject and activity
+table(data$subject, data$activity);
+# Check if there are any NAs
+sum(is.na(data))
+# Check NA by columns, subset
+head(colSums(is.na(data)), 10)
+
 
 ### Extracts only the measurements on the mean and standard deviation for each measurement. 
 avg <- apply(data[,3:562], 2, mean)
@@ -52,11 +70,14 @@ avg_sd <- cbind(avg, std);
 # Output sample data, make sure it works
 head(avg_sd)
 
+
 ### Uses descriptive activity names to name the activities in the data set
 # Done
 
+
 ### Appropriately labels the data set with descriptive variable names. 
 # Done
+
 
 ### Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 library(reshape2);

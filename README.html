@@ -129,6 +129,25 @@ head(data[, 1:5])</code></pre>
 ## 5       2  WALKING            0.2748          -0.02785          -0.12953
 ## 6       2  WALKING            0.2792          -0.01862          -0.11390</code></pre>
 </div>
+<div id="see-how-the-data-is-structred-output-is-in-the-codebook.md-file" class="section level3">
+<h3>See how the data is structred (output is in the CodeBook.md file)</h3>
+<pre class="r"><code># Get the size of the data
+print(object.size(data), units=&quot;Mb&quot;)
+# Get a summary of the data
+summary(data);
+# Get the structure of the data
+str(data);
+# See a table of subject
+table(data$subject);
+# See a table of activity
+table(data$activity);
+# See a two dimensional table of subject and activity
+table(data$subject, data$activity);
+# Check if there are any NAs
+sum(is.na(data))
+# Check NA by columns, subset
+head(colSums(is.na(data)), 10)</code></pre>
+</div>
 <div id="extracts-only-the-measurements-on-the-mean-and-standard-deviation-for-each-measurement." class="section level3">
 <h3>Extracts only the measurements on the mean and standard deviation for each measurement.</h3>
 <pre class="r"><code>avg &lt;- apply(data[,3:562], 2, mean)
