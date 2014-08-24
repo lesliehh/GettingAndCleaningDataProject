@@ -41,7 +41,7 @@ unzip(file);
 ```
 
 ### Load the files into R
-```{r, cache = TRUE}
+```{r}
 features <- read.table("../UCI HAR Dataset/features.txt");
 activities <- read.table("../UCI HAR Dataset/activity_labels.txt");
 # Load the test files
@@ -55,7 +55,7 @@ train_y <- read.table("../UCI HAR Dataset/train/y_train.txt");
 ```
 
 ### Merges the training and the test sets to create one data set.
-```{r, cache = TRUE}
+```{r}
 names(activities) <- c("activity_label", "activity");
 # Merge subject, activity and type data for test set
 names(test_subject) <- c("subject");
@@ -77,7 +77,7 @@ head(data[, 1:5])
 ```
 
 ### Extracts only the measurements on the mean and standard deviation for each measurement. 
-```{r, cache = TRUE}
+```{r}
 avg <- apply(data[,3:562], 2, mean)
 std <- apply(data[,3:562], 2, sd)
 avg <- as.data.frame(avg);
@@ -94,13 +94,13 @@ This step was done above, during merging of the data sets
 This step was done above, during merging of the data sets
 
 ### Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
-```{r, cache = TRUE}
+```{r}
 library(reshape2);
 data_melt <- melt(data, id = c("subject", "activity"));
 avg <- dcast(data_melt, subject + activity ~ variable, mean);
 ```
 #### Output sample data, make sure it works
-```{r, cache = TRUE}
+```{r}
 head(data_melt)
 head(avg[,1:4], 10)
 ```

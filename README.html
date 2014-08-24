@@ -156,8 +156,9 @@ head(avg_sd)</code></pre>
 </div>
 <div id="creates-a-second-independent-tidy-data-set-with-the-average-of-each-variable-for-each-activity-and-each-subject." class="section level3">
 <h3>Creates a second, independent tidy data set with the average of each variable for each activity and each subject.</h3>
-<pre class="r"><code>library(reshape2);
-data_melt &lt;- melt(data, id = c(&quot;subject&quot;, &quot;activity&quot;));
+<pre class="r"><code>library(reshape2);</code></pre>
+<pre><code>## Warning: package 'reshape2' was built under R version 3.0.3</code></pre>
+<pre class="r"><code>data_melt &lt;- melt(data, id = c(&quot;subject&quot;, &quot;activity&quot;));
 avg &lt;- dcast(data_melt, subject + activity ~ variable, mean);</code></pre>
 <div id="output-sample-data-make-sure-it-works" class="section level4">
 <h4>Output sample data, make sure it works</h4>

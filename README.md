@@ -4,14 +4,29 @@ date: "Sunday, August 24, 2014"
 output: html_document
 ---
 
-# Files
-- run_analysis.R
-- avg.txt
-- CodeBook.md
+## Files
+
 - README.md
+- CodeBook.md
+- avg.txt
+- run_analysis.R
 
 
-# run_analysis.R
+## 1. README.md
+
+The README.md file is the file that you are currently reading. It is the file that describes the files that are in this directory.
+
+## 2. CodeBook.md
+
+The CodeBook.md file describes the data and what transformations were done to the original data.
+
+## 2. avg.txt
+
+This text file is the output of the run_analysis.R file. It contains the average of the variables for each subject/activity pair. In other words, for each subject and activity, there will be an average value for each variable measured. 
+
+## 4. run_analysis.R
+
+Below we describe what the run_analysis.R file does in each step.
 
 
 
@@ -105,7 +120,7 @@ This step was done above, during merging of the data sets
 ```r
 library(reshape2);
 data_melt <- melt(data, id = c("subject", "activity"));
-avg <- dcast(data_melt, activity + subject ~ variable, mean);
+avg <- dcast(data_melt, subject + activity ~ variable, mean);
 ```
 #### Output sample data, make sure it works
 
@@ -124,21 +139,25 @@ head(data_melt)
 ```
 
 ```r
-head(avg[,1:4])
+head(avg[,1:4], 10)
 ```
 
 ```
-##   activity subject tBodyAcc-mean()-X tBodyAcc-mean()-Y
-## 1   LAYING      20            0.2682          -0.01544
-## 2   LAYING      24            0.2768          -0.01768
-## 3   LAYING      27            0.2778          -0.01694
-## 4   LAYING      28            0.2775          -0.01917
-## 5   LAYING      29            0.2791          -0.01847
-## 6   LAYING      30            0.2763          -0.01759
+##    subject         activity tBodyAcc-mean()-X tBodyAcc-mean()-Y
+## 1        1          WALKING            0.2657          -0.01830
+## 2        2          WALKING            0.2731          -0.01913
+## 3        3          WALKING            0.2734          -0.01786
+## 4        4          WALKING            0.2770          -0.01335
+## 5        4 WALKING_UPSTAIRS            0.2697          -0.01711
+## 6        5          WALKING            0.2792          -0.01548
+## 7        6          WALKING            0.2694          -0.01639
+## 8        6 WALKING_UPSTAIRS            0.2802          -0.02069
+## 9        7 WALKING_UPSTAIRS            0.2702          -0.01879
+## 10       8 WALKING_UPSTAIRS            0.2708          -0.01819
 ```
 
 
-### Write the tidy data to a file
+### Write the tidy data to the avg.txt file
 
 ```r
 write.table(avg, file = "avg.txt", row.name=FALSE);
