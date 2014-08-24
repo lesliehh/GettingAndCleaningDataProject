@@ -14,11 +14,11 @@ output: html_document
 
 ## 1. README.md
 
-The README.md file is the file that you are currently reading. It is the file that describes the files that are in this directory.
+The README.md file is the file that you are currently reading. It is the file that describes the files that are in this directory. This file is created by the .Rmd version of itself (README.Rmd).
 
 ## 2. CodeBook.md
 
-The CodeBook.md file describes the data and what transformations were done to the original data.
+The CodeBook.md file describes the data and what transformations were done to the original data. This file is created by the .Rmd version of itself (CodeBook.Rmd).
 
 ## 2. avg.txt
 
@@ -109,4 +109,11 @@ head(avg[,1:4], 10)
 ### Write the tidy data to the avg.txt file
 ```{r}
 write.table(avg, file = "avg.txt", row.name=FALSE);
+```
+
+### Create the .md version of the Rmd files
+```{r, eval=FALSE}
+library(knitr)
+knit("README.Rmd")
+knit("CodeBook.Rmd")
 ```

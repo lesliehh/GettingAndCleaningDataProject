@@ -68,11 +68,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="readme.md" class="section level2">
 <h2>1. README.md</h2>
-<p>The README.md file is the file that you are currently reading. It is the file that describes the files that are in this directory.</p>
+<p>The README.md file is the file that you are currently reading. It is the file that describes the files that are in this directory. This file is created by the .Rmd version of itself (README.Rmd).</p>
 </div>
 <div id="codebook.md" class="section level2">
 <h2>2. CodeBook.md</h2>
-<p>The CodeBook.md file describes the data and what transformations were done to the original data.</p>
+<p>The CodeBook.md file describes the data and what transformations were done to the original data. This file is created by the .Rmd version of itself (CodeBook.Rmd).</p>
 </div>
 <div id="avg.txt" class="section level2">
 <h2>2. avg.txt</h2>
@@ -187,6 +187,12 @@ avg &lt;- dcast(data_melt, subject + activity ~ variable, mean);</code></pre>
 <div id="write-the-tidy-data-to-the-avg.txt-file" class="section level3">
 <h3>Write the tidy data to the avg.txt file</h3>
 <pre class="r"><code>write.table(avg, file = &quot;avg.txt&quot;, row.name=FALSE);</code></pre>
+</div>
+<div id="create-the-.md-version-of-the-rmd-files" class="section level3">
+<h3>Create the .md version of the Rmd files</h3>
+<pre class="r"><code>library(knitr)
+knit(&quot;README.Rmd&quot;)
+knit(&quot;CodeBook.Rmd&quot;)</code></pre>
 </div>
 </div>
 

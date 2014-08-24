@@ -1,14 +1,33 @@
-setwd("C:/Base/Education/MOOC/Johns Hopkins - Data Science Specialization/Getting and Cleaning Data/GettingAndCleaningDataProject");
+---
+title: "CodeBook"
+date: "Sunday, August 24, 2014"
+output: html_document
+---
 
+This file describes the variables, the data, and any transformations or work that was performed to clean up the data.
+
+## Data structure
+
+- The final strucutre of the data has 562 variables with 10299 observations.
+- The first column is "subject," which is the ID of the subject
+- The second column is the "activity," which contains the activity that a specific subject performed
+- From the 3rd to the 562nd column are the different measurements for each pair of subject/activity
+
+## Data transformation in R
 
 ### Download and unzip the files
+
+```r
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip";
 file <- "../ProjectData.zip";
 download.file(url, destfile = file);
 unzip(file);
-
+```
 
 ### Load the files into R
+
+```r
+# Loan the feature and activity files
 features <- read.table("../UCI HAR Dataset/features.txt");
 activities <- read.table("../UCI HAR Dataset/activity_labels.txt");
 # Load the test files
@@ -19,9 +38,11 @@ test_y <- read.table("../UCI HAR Dataset/test/y_test.txt");
 train_subject <- read.table("../UCI HAR Dataset/train/subject_train.txt");
 train_x <- read.table("../UCI HAR Dataset/train/X_train.txt");
 train_y <- read.table("../UCI HAR Dataset/train/y_train.txt");
+```
 
+### Merge the training and the test sets to create one data set
 
-### Merges the training and the test sets to create one data set.
+```r
 names(activities) <- c("activity_label", "activity");
 # Merge subject, activity and type data for test set
 names(test_subject) <- c("subject");
@@ -38,40 +59,20 @@ train_data <- cbind(train_subject, train_activity, train_x);
 # Merge the test and train set
 data <- rbind(test_data, train_data);
 data <- data[,c(1,3:563)];
-# Output sample data, make sure it works
+```
+
+### Output a subset of the data to verify the structure
+
+```r
 head(data[, 1:5])
+```
 
-
-
-### Extracts only the measurements on the mean and standard deviation for each measurement. 
-avg <- apply(data[,3:562], 2, mean)
-std <- apply(data[,3:562], 2, sd)
-avg <- as.data.frame(avg);
-std <- as.data.frame(std);
-avg_sd <- cbind(avg, std);
-# Output sample data, make sure it works
-head(avg_sd)
-
-### Uses descriptive activity names to name the activities in the data set
-# Done
-
-### Appropriately labels the data set with descriptive variable names. 
-# Done
-
-### Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
-library(reshape2);
-data_melt <- melt(data, id = c("subject", "activity"));
-avg <- dcast(data_melt, subject + activity ~ variable, mean);
-# Output sample data, make sure it works
-head(data_melt)
-head(avg[,1:4], 10)
-
-
-### Write the tidy data to a file
-write.table(avg, file = "avg.txt", row.name=FALSE);
-
-
-### Create the .md version of the Rmd files
-library(knitr)
-knit("README.Rmd")
-knit("CodeBook.Rmd")
+```
+##   subject activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
+## 1       2  WALKING            0.2572          -0.02329          -0.01465
+## 2       2  WALKING            0.2860          -0.01316          -0.11908
+## 3       2  WALKING            0.2755          -0.02605          -0.11815
+## 4       2  WALKING            0.2703          -0.03261          -0.11752
+## 5       2  WALKING            0.2748          -0.02785          -0.12953
+## 6       2  WALKING            0.2792          -0.01862          -0.11390
+```
